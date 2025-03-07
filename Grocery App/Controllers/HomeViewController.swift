@@ -16,7 +16,7 @@ class HomeViewController: UIViewController {
         SectionData(
             title: "Header",
             items: [
-                .header(address: "100 High Street, London")
+                .header(address: "100 High Street, Ahmedabad")
             ]
         ),
         

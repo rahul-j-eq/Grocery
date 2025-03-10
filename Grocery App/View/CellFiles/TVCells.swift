@@ -24,6 +24,7 @@ class HeaderTVCell: UITableViewCell {
 class ItemTableViewCell: UITableViewCell {
     
     @IBOutlet weak var itemCollectionView: UICollectionView!
+    @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
     
     var sectionData: SectionData? {
         didSet {
@@ -39,19 +40,32 @@ class ItemTableViewCell: UITableViewCell {
 } 
 
 extension ItemTableViewCell: UICollectionViewDelegate , UICollectionViewDataSource , UICollectionViewDelegateFlowLayout{
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ItemCVCell", for: indexPath) as! ItemCVCell
+        if case let .category(title, description) = sectionData?.items[indexPath.item] {
+            cell.title.text = title
+            cell.lblInfo.text = description
+        }
+        
+        // Call configure to apply background color logic
+        cell.configure(indexPath: indexPath)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return sectionData?.items.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = (collectionView.frame.width) / 2
         return CGSize(width: width, height: width)
+    }
+
+    func updateCollectionViewHeight() {
+        self.layoutIfNeeded()
+        let height = itemCollectionView.contentSize.height
+        collectionViewHeightConstraint.constant = height
     }
     
 }
@@ -59,6 +73,14 @@ extension ItemTableViewCell: UICollectionViewDelegate , UICollectionViewDataSour
 class DiscountItemTableViewCell: UITableViewCell {
 
     @IBOutlet weak var discountItemCV: UICollectionView!
+    @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
+    
+    
+    var sectionData: SectionData? {
+        didSet {
+            discountItemCV.reloadData()
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -72,16 +94,28 @@ extension DiscountItemTableViewCell: UICollectionViewDelegate , UICollectionView
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DiscountItemCVCell", for: indexPath) as! DiscountItemCVCell
+        if case let .product(title, quantity, price) = sectionData?.items[indexPath.item] {
+            cell.title.text = title
+            cell.lblInfo.text = quantity
+            cell.price.text = "\(price)$"
+        }
+        cell.configure(indexPath: indexPath)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return sectionData?.items.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = (collectionView.frame.width) / 2
         return CGSize(width: width, height: width)
+    }
+    
+    func updateCollectionViewHeight() {
+        self.layoutIfNeeded()
+        let height = discountItemCV.contentSize.height
+        self.collectionViewHeightConstraint.constant = height
     }
     
 }

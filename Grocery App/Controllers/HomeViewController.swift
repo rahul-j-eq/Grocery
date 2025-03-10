@@ -14,7 +14,7 @@ class HomeViewController: UIViewController {
     var tableViewData: [SectionData] = [
         // Header Section
         SectionData(
-            title: "Header",
+            title: "",
             items: [
                 .header(address: "100 High Street, Ahmedabad")
             ]
@@ -24,6 +24,8 @@ class HomeViewController: UIViewController {
         SectionData(
             title: "Explore Categories",
             items: [
+                .category(title: "Vegetables", description: "Vegetables are parts of plants that are consumed by humans..."),
+                .category(title: "Fish & Meat", description: "Fish is the flesh of an animal used for food, and by that definition..."),
                 .category(title: "Vegetables", description: "Vegetables are parts of plants that are consumed by humans..."),
                 .category(title: "Fish & Meat", description: "Fish is the flesh of an animal used for food, and by that definition...")
             ]
@@ -79,11 +81,28 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             
         case .category:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ItemTableViewCell", for: indexPath) as! ItemTableViewCell
-            // Pass section data if needed (e.g., to collectionView inside the cell)
+            cell.sectionData = sectionData
+            cell.itemCollectionView.reloadData()
+            
+            // Update collectionView height after content loads
+            DispatchQueue.main.async {
+                cell.updateCollectionViewHeight()
+                tableView.beginUpdates()
+                tableView.endUpdates()
+            }
             return cell
             
         case .product:
             let cell = tableView.dequeueReusableCell(withIdentifier: "DiscountItemTableViewCell", for: indexPath) as! DiscountItemTableViewCell
+            cell.sectionData = sectionData
+            cell.discountItemCV.reloadData()
+            
+            // Update collectionView height after content loads
+            DispatchQueue.main.async {
+                cell.updateCollectionViewHeight()
+                tableView.beginUpdates()
+                tableView.endUpdates()
+            }
             return cell
         default:
             return UITableViewCell()
@@ -97,7 +116,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         case .header:
             return UITableView.automaticDimension // Adjust header height as needed
         case .category, .product:
-            return 400 // Height for collectionView cells
+            return UITableView.automaticDimension // Height for collectionView cells
         default:
             return UITableView.automaticDimension // Adjust dynamically for other cells
         }

@@ -11,37 +11,49 @@ class CategoryViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    let categoryList: [CategoryData] = [
-        CategoryData(
-            title: "Vegetables",
-            description: "Vegetables are parts of plants that are consumed by humans.",
-            items: [.categoryItem(title: "Vegetables", totalItems: 50)]
-        ),
-        CategoryData(
-            title: "Fruits",
-            description: "Fruits are nature's sweet and nutritious treats, rich in vitamins.",
-            items: [.categoryItem(title: "Fruits", totalItems: 28)]
-        ),
-        CategoryData(
-            title: "Fish & Meat",
-            description: "Fresh fish and meat products sourced from quality vendors.",
-            items: [.categoryItem(title: "Fish & Meat", totalItems: 15)]
-        ),
-        CategoryData(
-            title: "Dairy Products",
-            description: "Milk, cheese, yogurt, and other dairy essentials.",
-            items: [.categoryItem(title: "Dairy Products", totalItems: 20)]
-        ),
-        CategoryData(
-            title: "Bakery Items",
-            description: "Freshly baked bread, pastries, and cakes for every occasion.",
-            items: [.categoryItem(title: "Bakery Items", totalItems: 17)]
-        ),
-        CategoryData(
-            title: "Beverages",
-            description: "A collection of refreshing drinks including tea, coffee, and juices.",
-            items: [.categoryItem(title: "Beverages", totalItems: 19)]
-        )
+    // MARK: - TableView Data
+    var categorySections: [CategorySectionType] = [
+        .header,  // Section 0 - Header
+        
+        .categories(items: [  // Section 1 - Categories
+            CategoryData(
+                title: "Vegetables",
+                description: "Vegetables are parts of plants that are consumed by humans.",
+                items: [.categoryItem(title: "Vegetables")]
+            ),
+            CategoryData(
+                title: "Fruits",
+                description: "Fruits are nature's sweet and nutritious treats, rich in vitamins.",
+                items: [.categoryItem(title: "Fruits")]
+            ),
+            CategoryData(
+                title: "Fish & Meat",
+                description: "Fresh fish and meat products sourced from quality vendors.",
+                items: [.categoryItem(title: "Fish & Meat")]
+            ),
+            CategoryData(
+                title: "Dairy Products",
+                description: "Milk, cheese, yogurt, and other dairy essentials.",
+                items: [.categoryItem(title: "Dairy Products")]
+            ),
+            CategoryData(
+                title: "Bakery Items",
+                description: "Freshly baked bread, pastries, and cakes for every occasion.",
+                items: [
+                    .categoryItem(title: "Bread"),
+                    .categoryItem(title: "Cake"),
+                    .categoryItem(title: "Pastry"),
+                    .categoryItem(title: "Scones"),
+                ]
+            ),
+            CategoryData(
+                title: "Beverages",
+                description: "A collection of refreshing drinks including tea, coffee, and juices.",
+                items: [.categoryItem(title: "Beverages")]
+            )
+                           ]),
+        
+            .rating  // Section 3 - Rating...
     ]
     
     override func viewDidLoad() {
@@ -57,35 +69,50 @@ class CategoryViewController: UIViewController {
     }
 }
 
+// MARK: - TableView Delegate & DataSource
 extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1  // One section for all categories
+        return categorySections.count
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return section == 0 ? "Explore Categories" : nil
+        switch categorySections[section] {
+        case .header:
+            return nil
+        case .categories:
+            return "Explore All Categories"
+        case .rating:
+            return "Selected Items"
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2  // Cell 0 = Header, Cell 1 = CollectionView
+        switch categorySections[section] {
+        case .header:
+            return 1  // Discount cell
+        case .categories(let items):
+            print(items)
+            return 1 // CollectionViewCell (Contains all categories)
+        case .rating:
+            return 1
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.row {
-        case 0:
-            // Header Cell
+        switch categorySections[indexPath.section] {
+        case .header:
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
             return cell
             
-        case 1:
-            // Category CollectionView Cell
+        case .categories(let items):
             let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryTVCell", for: indexPath) as! CategoryTVCell
-            cell.configure(with: categoryList)
+            cell.configure(with: items) // Pass categories to the CollectionView
             return cell
             
-        default:
-            return UITableViewCell()
+        case .rating:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cell2", for: indexPath)
+            return cell
         }
     }
     

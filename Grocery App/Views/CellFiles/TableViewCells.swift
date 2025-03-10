@@ -28,6 +28,8 @@ extension UITableViewCell {
     }
 }
 
+
+//MARK: - Main TVCells
 class HeaderTVCell: UITableViewCell {
 
     @IBOutlet weak var addressLabel: UILabel!
@@ -154,5 +156,69 @@ extension DiscountItemTableViewCell: UICollectionViewDelegate , UICollectionView
         if let selectedItem = sectionData?.items[indexPath.item] {
             delegate?.didSelectDicountItem(selectedItem)
         }
+    }
+}
+
+
+//MARK: - Category TVCells
+
+
+class CategoryTVCell: UITableViewCell {
+    
+    @IBOutlet weak var categoryCollectionView: UICollectionView!
+    @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
+    
+    var categoryDataList: [CategoryData] = [] {
+        didSet {
+            categoryCollectionView.reloadData()
+        }
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        setupCollectionView(categoryCollectionView, delegate: self, direction: .vertical)
+    }
+    
+    func configure(with data: [CategoryData]) { // Now accepts an array
+        self.categoryDataList = data // Store the array
+        categoryCollectionView.reloadData()
+        updateCollectionViewHeight()
+    }
+
+}
+
+extension CategoryTVCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    //MARK: Category cellForItemAt
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCVCell", for: indexPath) as! CategoryCVCell
+        
+        let categoryItem = categoryDataList[indexPath.item]
+        cell.title.text = categoryItem.title
+        cell.infoLbl.text = "\(categoryItem.items.count) items"
+        cell.configure(indexPath: indexPath)
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return categoryDataList.count
+    }
+    
+    //MARK: Category sizeForItemAt
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = (collectionView.frame.width) / 2
+        return CGSize(width: width, height: width/2)
+    }
+    
+    func updateCollectionViewHeight() {
+        self.layoutIfNeeded()
+        let height = categoryCollectionView.contentSize.height
+        self.collectionViewHeightConstraint.constant = height
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedCategory = categoryDataList[indexPath.item] // Get the selected category
+        print("Selected Category: \(selectedCategory.title)")
     }
 }

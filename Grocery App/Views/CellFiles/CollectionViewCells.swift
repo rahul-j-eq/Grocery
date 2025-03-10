@@ -7,6 +7,8 @@
 
 import UIKit
 
+//MARK: - MainVC Cells
+
 class ItemCVCell: UICollectionViewCell {
     
     
@@ -59,4 +61,56 @@ class DiscountItemCVCell: UICollectionViewCell {
         title.textColor = textColor
         lblInfo.textColor = textColor
     }
+}
+
+
+
+//MARK: - Category Cells
+
+class CategoryCVCell: UICollectionViewCell {
+    
+    @IBOutlet weak var mainView: UIView!
+    @IBOutlet weak var subView: UIView!
+    
+    @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var infoLbl: UILabel!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+    }
+    
+    func configure(indexPath: IndexPath) {
+        // Generate a random bright color
+        let randomColor = [
+            UIColor.systemRed,
+            UIColor.systemBlue,
+            UIColor.systemGreen,
+            UIColor.systemYellow,
+            UIColor.systemOrange,
+            UIColor.systemPurple,
+            UIColor.systemPink,
+            UIColor.systemTeal,
+            UIColor.systemIndigo,
+            UIColor.systemBrown,
+            UIColor.systemCyan,
+            UIColor.systemMint,
+            UIColor.red,
+            UIColor.blue,
+            UIColor.brown,
+            UIColor.systemOrange.withAlphaComponent(0.9),
+            UIColor.systemYellow.withAlphaComponent(0.9),
+            UIColor.systemGreen.withAlphaComponent(0.9),
+            UIColor.systemRed.withAlphaComponent(0.9),
+            UIColor.systemBlue.withAlphaComponent(0.9),
+            UIColor.systemTeal.withAlphaComponent(0.9)
+        ].randomElement() ?? UIColor.systemBlue
+        
+        // Apply 100% opacity to subView
+        subView.backgroundColor = randomColor
+        
+        // Apply 30% opacity version of the color to mainView
+        mainView.backgroundColor = randomColor.withAlphaComponent(0.3)
+    }
+
 }

@@ -45,17 +45,26 @@ class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.delegate = self
-        tableView.dataSource = self
-//        setupTableHeaderView()
+        setupTV()
     }
     
-    func setupTableHeaderView() {
-        if let headerView = tableView.dequeueReusableCell(withIdentifier: "HeaderTVCell") as? HeaderTVCell {
-            tableView.tableHeaderView = headerView
-            tableView.tableHeaderView?.frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: 150) // Adjust height as needed
-        }
+    func setupTV(){
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.estimatedRowHeight = 100
+        self.tableView.rowHeight = UITableView.automaticDimension
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+
 }
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {

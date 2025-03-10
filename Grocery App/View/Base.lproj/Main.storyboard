@@ -155,11 +155,11 @@
                                                                                 <color key="textColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
-                                                                            <view contentMode="scaleToFill" verticalHuggingPriority="252" translatesAutoresizingMaskIntoConstraints="NO" id="Ddd-Ka-QEd">
-                                                                                <rect key="frame" x="8" y="86" width="138" height="70"/>
+                                                                            <view contentMode="scaleToFill" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ddd-Ka-QEd">
+                                                                                <rect key="frame" x="8" y="87.333333333333314" width="138" height="68.666666666666686"/>
                                                                                 <color key="backgroundColor" systemColor="systemGreenColor"/>
                                                                                 <constraints>
-                                                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="70" id="zNu-zK-Rbj"/>
+                                                                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="70" id="buB-3J-Cig"/>
                                                                                 </constraints>
                                                                                 <userDefinedRuntimeAttributes>
                                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -168,7 +168,10 @@
                                                                                 </userDefinedRuntimeAttributes>
                                                                             </view>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="Vegetables are parts of plants " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cbr-sS-Jnc">
-                                                                                <rect key="frame" x="8" y="52.333333333333336" width="138" height="28.666666666666664"/>
+                                                                                <rect key="frame" x="8" y="52.333333333333343" width="138" height="30"/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="UvU-rZ-oab"/>
+                                                                                </constraints>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                                 <color key="textColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -183,7 +186,7 @@
                                                                             <constraint firstItem="cbr-sS-Jnc" firstAttribute="leading" secondItem="w2d-xZ-3KF" secondAttribute="leading" id="jdd-hw-2uX"/>
                                                                             <constraint firstAttribute="bottom" secondItem="Ddd-Ka-QEd" secondAttribute="bottom" constant="15" id="l4s-2b-YTP"/>
                                                                             <constraint firstItem="cbr-sS-Jnc" firstAttribute="trailing" secondItem="w2d-xZ-3KF" secondAttribute="trailing" id="qqT-OB-SH2"/>
-                                                                            <constraint firstItem="Ddd-Ka-QEd" firstAttribute="top" relation="greaterThanOrEqual" secondItem="cbr-sS-Jnc" secondAttribute="bottom" constant="5" id="tzA-BD-eQ6"/>
+                                                                            <constraint firstItem="Ddd-Ka-QEd" firstAttribute="top" secondItem="cbr-sS-Jnc" secondAttribute="bottom" constant="5" id="tzA-BD-eQ6"/>
                                                                             <constraint firstAttribute="trailing" secondItem="Ddd-Ka-QEd" secondAttribute="trailing" constant="8" id="w2b-wy-Gmi"/>
                                                                             <constraint firstAttribute="trailing" secondItem="w2d-xZ-3KF" secondAttribute="trailing" constant="8" id="weA-4n-o4h"/>
                                                                         </constraints>
@@ -254,11 +257,11 @@
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jpt-wT-9eO">
                                                                         <rect key="frame" x="5" y="5" width="162" height="194"/>
                                                                         <subviews>
-                                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RTO-wj-Y9X">
+                                                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RTO-wj-Y9X">
                                                                                 <rect key="frame" x="8" y="20" width="146" height="70"/>
                                                                                 <color key="backgroundColor" systemColor="systemGreenColor"/>
                                                                                 <constraints>
-                                                                                    <constraint firstAttribute="height" constant="70" id="U1Y-6G-9S3"/>
+                                                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="dxN-8G-svh"/>
                                                                                 </constraints>
                                                                                 <userDefinedRuntimeAttributes>
                                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -266,20 +269,23 @@
                                                                                     </userDefinedRuntimeAttribute>
                                                                                 </userDefinedRuntimeAttributes>
                                                                             </view>
-                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="Washing Liquid" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DGu-dA-MFO">
-                                                                                <rect key="frame" x="8" y="96" width="146" height="19.333333333333329"/>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="248" verticalCompressionResistancePriority="751" ambiguous="YES" text="Washing Liquid" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DGu-dA-MFO">
+                                                                                <rect key="frame" x="8" y="96" width="146" height="20"/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="XDM-N6-kab"/>
+                                                                                </constraints>
                                                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                                                                 <color key="textColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
-                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="220 ml" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="36w-0c-t1n">
-                                                                                <rect key="frame" x="8" y="126.99999999999999" width="45.666666666666664" height="14.333333333333329"/>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" ambiguous="YES" text="220 ml" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="36w-0c-t1n">
+                                                                                <rect key="frame" x="8" y="127.66666666666663" width="40.666666666666664" height="14.333333333333371"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                                 <color key="textColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
-                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="230$" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Jj-bV-nqG">
-                                                                                <rect key="frame" x="12.999999999999996" y="159.66666666666666" width="40.666666666666657" height="19.333333333333343"/>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="230$" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Jj-bV-nqG">
+                                                                                <rect key="frame" x="8" y="159.66666666666666" width="40.666666666666671" height="19.333333333333343"/>
                                                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                                                                 <color key="textColor" systemColor="systemOrangeColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -315,7 +321,7 @@
                                                                             <constraint firstAttribute="bottom" secondItem="9Jj-bV-nqG" secondAttribute="bottom" constant="15" id="EXC-5i-XVn"/>
                                                                             <constraint firstItem="36w-0c-t1n" firstAttribute="leading" secondItem="DGu-dA-MFO" secondAttribute="leading" id="Rdu-41-f0h"/>
                                                                             <constraint firstItem="DGu-dA-MFO" firstAttribute="top" secondItem="RTO-wj-Y9X" secondAttribute="bottom" constant="6" id="U4B-mu-1IR"/>
-                                                                            <constraint firstItem="9Jj-bV-nqG" firstAttribute="leading" secondItem="36w-0c-t1n" secondAttribute="leading" constant="5" id="UDR-Xa-WJ6"/>
+                                                                            <constraint firstItem="9Jj-bV-nqG" firstAttribute="leading" secondItem="36w-0c-t1n" secondAttribute="leading" id="UDR-Xa-WJ6"/>
                                                                             <constraint firstItem="RTO-wj-Y9X" firstAttribute="top" secondItem="Jpt-wT-9eO" secondAttribute="top" constant="20" id="XHm-IQ-SeW"/>
                                                                             <constraint firstItem="TO5-Iv-jlt" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="36w-0c-t1n" secondAttribute="trailing" constant="5" id="do6-Sn-fzh"/>
                                                                             <constraint firstAttribute="trailing" secondItem="TO5-Iv-jlt" secondAttribute="trailing" constant="10" id="i23-Bf-hjf"/>

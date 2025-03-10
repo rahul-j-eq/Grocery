@@ -35,8 +35,10 @@ class HomeViewController: UIViewController {
         SectionData(
             title: "For Sale and Low Cost",
             items: [
-                .product(title: "Washing Liquid", quantity: "220 ml", price: "$230"),
-                .product(title: "Coffee and Tea", quantity: "100 g", price: "$30")
+                .product(title: "Washing Liquid", quantity: "220 ml", price: "230"),
+                .product(title: "Coffee and Tea", quantity: "100 g", price: "30"),
+                .product(title: "Washing Liquid", quantity: "220 ml", price: "68"),
+                .product(title: "Coffee and Tea", quantity: "100 g", price: "37")
             ]
         )
     ]
@@ -83,7 +85,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "ItemTableViewCell", for: indexPath) as! ItemTableViewCell
             cell.sectionData = sectionData
             cell.itemCollectionView.reloadData()
-            
+            cell.delegate = self
             // Update collectionView height after content loads
             DispatchQueue.main.async {
                 cell.updateCollectionViewHeight()
@@ -96,7 +98,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "DiscountItemTableViewCell", for: indexPath) as! DiscountItemTableViewCell
             cell.sectionData = sectionData
             cell.discountItemCV.reloadData()
-            
+            cell.delegate = self
             // Update collectionView height after content loads
             DispatchQueue.main.async {
                 cell.updateCollectionViewHeight()
@@ -108,7 +110,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
     }
-
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let sectionData = tableViewData[indexPath.section]
 
@@ -119,6 +121,35 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableView.automaticDimension // Height for collectionView cells
         default:
             return UITableView.automaticDimension // Adjust dynamically for other cells
+        }
+    }
+}
+
+
+//MARK: - ItemTableViewCellDelegate
+extension HomeViewController: ItemTableViewCellDelegate {
+    func didSelectItem(_ item: ItemType) {
+        switch item {
+        case .category(let title, _ ):
+            print("Category Selected: \(title)")
+        case .product(let title, _, let price):
+            print("Product Selected: \(title) - \(price)$")
+        default:
+            break
+        }
+    }
+}
+
+//MARK: - DiscountItemTableViewCellDelegate
+extension HomeViewController: DiscountItemTableViewCellDelegate {
+    func didSelectDicountItem(_ item: ItemType) {
+        switch item {
+        case .category(let title, _ ):
+            print("Category Selected: \(title)")
+        case .product(let title, _, let price):
+            print("Product Selected: \(title) - \(price)$")
+        default:
+            break
         }
     }
 }

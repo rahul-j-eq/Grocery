@@ -53,7 +53,7 @@ class DiscountItemCVCell: UICollectionViewCell {
         let isRed = (indexPath.item % 4 < 2)
         
         mainView.backgroundColor = isRed ? UIColor.systemRed : UIColor.yellow
-        subView.backgroundColor = isRed ? UIColor.systemGreen : UIColor.systemOrange
+        subView.backgroundColor = isRed ? UIColor.systemOrange : UIColor.systemGreen
         
         let textColor: UIColor = isRed ? .white : .black
         title.textColor = textColor

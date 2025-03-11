@@ -17,19 +17,19 @@ class CategoryViewController: UIViewController {
         
         .categories(items: [  // Section 1 - Categories
             CategoryData(
-                title: "Vegetables",
+                title: "Vegetables & Fruits",
                 description: "Vegetables are parts of plants that are consumed by humans.",
-                items: [.categoryItem(title: "Vegetables")]
+                items: [.categoryItem(title: "Vegetables & Fruits")]
             ),
             CategoryData(
-                title: "Fruits",
-                description: "Fruits are nature's sweet and nutritious treats, rich in vitamins.",
-                items: [.categoryItem(title: "Fruits")]
+                title: "Bites & Drinks",
+                description: "A variety of snacks and beverages to keep you refreshed.",
+                items: [.categoryItem(title: "Bites & Drinks")]
             ),
             CategoryData(
-                title: "Fish & Meat",
-                description: "Fresh fish and meat products sourced from quality vendors.",
-                items: [.categoryItem(title: "Fish & Meat")]
+                title: "Cooking & Elements",
+                description: "Essential ingredients for delicious home-cooked meals.",
+                items: [.categoryItem(title: "Cooking & Elements")]
             ),
             CategoryData(
                 title: "Dairy Products",
@@ -40,20 +40,17 @@ class CategoryViewController: UIViewController {
                 title: "Bakery Items",
                 description: "Freshly baked bread, pastries, and cakes for every occasion.",
                 items: [
-                    .categoryItem(title: "Bread"),
-                    .categoryItem(title: "Cake"),
-                    .categoryItem(title: "Pastry"),
-                    .categoryItem(title: "Scones"),
+                    .categoryItem(title: "Bakery Items")
                 ]
             ),
             CategoryData(
-                title: "Beverages",
-                description: "A collection of refreshing drinks including tea, coffee, and juices.",
-                items: [.categoryItem(title: "Beverages")]
+                title: "Transport & Vehicles",
+                description: "Various transport options including cars, bikes, and logistics.",
+                items: [.categoryItem(title: "Transport & Vehicles")]
             )
-                           ]),
-        
-            .rating  // Section 3 - Rating...
+        ]),
+
+        .rating  // Section 3 - Rating...
     ]
     
     override func viewDidLoad() {
@@ -102,11 +99,12 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch categorySections[indexPath.section] {
         case .header:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "DiscountCell", for: indexPath)
             return cell
             
         case .categories(let items):
             let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryTVCell", for: indexPath) as! CategoryTVCell
+            cell.delegate = self
             cell.configure(with: items) // Pass categories to the CollectionView
             return cell
             
@@ -118,5 +116,14 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
+    }
+}
+
+
+extension CategoryViewController: CategoryTableViewCellDelegate{
+    func didSelectDetailItem(_ item: CategoryData) {
+        print(item)
+        let detailsVC = self.storyboard?.instantiateViewController(withIdentifier: "DetailsViewController") as! DetailsViewController
+        self.navigationController?.pushViewController(detailsVC, animated: true)
     }
 }

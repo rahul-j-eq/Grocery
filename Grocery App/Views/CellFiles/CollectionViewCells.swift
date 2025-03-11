@@ -98,18 +98,14 @@ class CategoryCVCell: UICollectionViewCell {
             UIColor.red,
             UIColor.blue,
             UIColor.brown,
-            UIColor.systemOrange.withAlphaComponent(0.9),
-            UIColor.systemYellow.withAlphaComponent(0.9),
-            UIColor.systemGreen.withAlphaComponent(0.9),
-            UIColor.systemRed.withAlphaComponent(0.9),
-            UIColor.systemBlue.withAlphaComponent(0.9),
-            UIColor.systemTeal.withAlphaComponent(0.9)
         ].randomElement() ?? UIColor.systemBlue
         
         // Apply 100% opacity to subView
         subView.backgroundColor = randomColor
         
         // Apply 30% opacity version of the color to mainView
+        mainView.borderWidth = 1
+        mainView.borderColor = randomColor
         mainView.backgroundColor = randomColor.withAlphaComponent(0.3)
     }
 

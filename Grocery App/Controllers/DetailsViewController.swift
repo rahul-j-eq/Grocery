@@ -19,8 +19,10 @@ class DetailsViewController: UIViewController {
                 .info(description: "vegetable, in the broadest sense, any kind of plant life or plant product, namely “vegetable matter”; in common, narrow usage, the term vegetable usually refers to the fresh edible portions of certain herbaceous plants—roots, stems, leaves, flowers, fruit, or seeds. These plant parts are either eaten fresh or prepared in a number of ways, usually as a savory, rather than sweet, dish.")
             ]), // Product Info Cell
             SectionData(title: "Price List", items: [
-                .product(title: "Apple", quantity: "50", price: "200$"),
-                .product(title: "Beans", quantity: "8", price: "27$")
+                .product(title: "Apple", quantity: "50ps", price: "200$"),
+                .product(title: "Beans", quantity: "100g", price: "27$"),
+                .product(title: "Soap", quantity: "10ps", price: "700$"),
+                .product(title: "Shampu", quantity: "8ps", price: "47$"),
             ]), // Price Table Cell
             SectionData(title: "", items: [
                 .checkout(totalPrice: "227$")
@@ -75,15 +77,22 @@ extension DetailsViewController: UITableViewDataSource, UITableViewDelegate {
             return cell
             
         case .product:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "PriceTableCell", for: indexPath) as! PriceTableCell
-            let products = section.items.compactMap { item -> ProductItem? in
-                if case let .product(title, quantity, price) = item {
-                    return ProductItem(title: title, quantity: quantity, price: price)
+            if indexPath.row == 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "PriceTableCell", for: indexPath) as! PriceTableCell
+                
+                let products = section.items.compactMap { item -> ProductItem? in
+                    if case let .product(title, quantity, price) = item {
+                        return ProductItem(title: title, quantity: quantity, price: price)
+                    }
+                    return nil
                 }
-                return nil
+                
+                print("🟠 Creating PriceTableCell with \(products.count) products")
+                cell.configure(products: products)
+                return cell
+            } else {
+                return UITableViewCell() // Return an empty cell for extra rows
             }
-            cell.configure(products: products)
-            return cell
             
         case .checkout(let totalPrice):
             let cell = tableView.dequeueReusableCell(withIdentifier: "CheckoutCell", for: indexPath) as! CheckoutCell

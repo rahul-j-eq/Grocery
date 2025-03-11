@@ -250,11 +250,15 @@ class PriceTableCell: UITableViewCell {
         super.awakeFromNib()
         tableview.delegate = self
         tableview.dataSource = self
+        tableview.estimatedRowHeight = 100
     }
     
     func configure(products: [ProductItem]) {
         self.products = products
-        tableview.reloadData() // Refresh table when data is set
+        print("🔵 configure(products:) called with \(products.count) items")
+        tableview.delegate = self   // Explicitly setting again
+        tableview.dataSource = self // Explicitly setting again
+        tableview.reloadData()
     }
 }
 
@@ -265,7 +269,7 @@ extension PriceTableCell: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 70
+        return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -273,6 +277,19 @@ extension PriceTableCell: UITableViewDelegate, UITableViewDataSource {
         let product = products[indexPath.row]
         cell.configure(index: indexPath.row + 1, title: product.title, quantity: product.quantity, price: product.price)
         return cell
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        tableview.layoutIfNeeded()
+        let contentHeight = tableview.contentSize.height
+        if contentHeight > 0 {
+            self.frame.size.height = contentHeight
+            self.tableview.frame.size.height = contentHeight
+        }
+        DispatchQueue.main.async {
+            self.tableview.reloadData()
+        }
     }
 }
 
